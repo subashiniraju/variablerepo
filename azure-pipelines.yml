@@ -1,0 +1,25 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  name: default
+variables:
+ rgname: "yamRG1"
+ loc: "westus"
+
+steps:
+- task: AzurePowerShell@5
+  inputs:
+    azureSubscription: 'azure-connection'
+    ScriptType: 'InlineScript'
+    Inline: |
+      # You can write your azure powershell scripts inline here. 
+      # You can also pass predefined and custom variables to this script using arguments
+      
+      new-azresourcegroup -name $(rgname) -location $(loc)
+    azurePowerShellVersion: 'LatestVersion'
